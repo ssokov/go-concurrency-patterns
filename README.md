@@ -1,10 +1,12 @@
 # Go Concurrency Patterns
 
-A collection of idiomatic concurrency patterns in Go.
+A structured collection of core Go concurrency patterns focused on channel-based coordination and goroutine orchestration.
 
-Includes practical examples of goroutines, channels, worker pools, pipelines, cancellation, synchronization primitives, and related patterns.
+This repository demonstrates practical implementations of streaming, fan-in/fan-out composition, worker pools, backpressure control, rate limiting, and channel orchestration patterns.
 
-All implementations are minimal, clear, and race-safe.
+All patterns are implemented using Go generics.
+
+Each pattern is written in an idiomatic, minimal, and race-safe way.
 
 ---
 
