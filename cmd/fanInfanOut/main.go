@@ -8,7 +8,7 @@ import (
 	"github.com/ssokov/go-concurrency-patterns/internal/generator"
 )
 
-func worker[T any, R any](ctx context.Context, in <-chan T, count int, fn func(T) R) <-chan R {
+func worker[T any, R any](ctx context.Context, in <-chan T, fn func(T) R) <-chan R {
 	out := make(chan R)
 
 	go func() {
@@ -50,7 +50,7 @@ func main() {
 
 	for _, ch := range outs {
 		workerOuts = append(workerOuts,
-			worker(ctx, ch, 0, func(v int) int {
+			worker(ctx, ch, func(v int) int {
 				return v * v
 			}),
 		)

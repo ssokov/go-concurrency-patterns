@@ -16,11 +16,8 @@ Each pattern is written in an idiomatic, minimal, and race-safe way.
 - [x] Fan-out
 - [x] Fan-in
 - [x] Fan-in + Fan-out
-- [ ] Pipeline
-- [ ] Worker Pool
-- [ ] Bounded Worker Pool
+- [x] Worker Pool
 - [ ] Semaphore (channel-based)
 - [x] Rate Limiting
-- [ ] Backpressure
 - [ ] Tee Channel
 - [ ] Bridge Channel

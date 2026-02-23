@@ -8,7 +8,7 @@
 // to terminate the background goroutine. It is recommended to use:
 //
 //	rl := ratelimit.NewleakyBuckerLimiter(...)
-//	defer rl.Stop()
+//	defer rl.Stop() 
 //
 // to ensure proper resource cleanup.
 package ratelimit
