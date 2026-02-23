@@ -1,24 +1,35 @@
 // Package ratelimit provides rate limiting primitives.
 //
-// LeakyBuckerLimiter implements a classic leaky bucket algorithm.
+// leakyBuckerLimiter implements a classic leaky bucket algorithm.
 // It allows up to N events per time period with a constant drain rate.
+//
+// A background goroutine is started internally to leak tokens at a fixed interval.
+// Callers should invoke Stop() when the limiter is no longer needed
+// to terminate the background goroutine. It is recommended to use:
+//
+//	rl := ratelimit.NewleakyBuckerLimiter(...)
+//	defer rl.Stop()
+//
+// to ensure proper resource cleanup.
 package ratelimit
 
 import (
 	"runtime"
+	"sync"
 	"time"
 )
 
-type LeakyBuckerLimiter struct {
+type leakyBuckerLimiter struct {
 	bucket   chan struct{}
 	quit     chan struct{}
 	interval time.Duration
+	once     sync.Once
 }
 
-func NewLeakyBuckerLimiter(limit int, period time.Duration) *LeakyBuckerLimiter {
+func NewLeakyBuckerLimiter(limit int, period time.Duration) *leakyBuckerLimiter {
 	interval := period / time.Duration(limit)
 
-	limiter := &LeakyBuckerLimiter{
+	limiter := &leakyBuckerLimiter{
 		bucket:   make(chan struct{}, limit),
 		quit:     make(chan struct{}),
 		interval: interval,
@@ -29,7 +40,7 @@ func NewLeakyBuckerLimiter(limit int, period time.Duration) *LeakyBuckerLimiter 
 	return limiter
 }
 
-func (l *LeakyBuckerLimiter) startLeaking() {
+func (l *leakyBuckerLimiter) startLeaking() {
 
 	ticker := time.NewTicker(l.interval)
 	defer ticker.Stop()
@@ -49,11 +60,14 @@ func (l *LeakyBuckerLimiter) startLeaking() {
 
 }
 
-func (l *LeakyBuckerLimiter) Stop() {
-	close(l.quit)
+func (l *leakyBuckerLimiter) Stop() {
+	l.once.Do(func() {
+		close(l.quit)
+	})
+
 }
 
-func (l *LeakyBuckerLimiter) Allow() bool {
+func (l *leakyBuckerLimiter) Allow() bool {
 	select {
 	case l.bucket <- struct{}{}:
 		return true

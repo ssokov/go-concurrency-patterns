@@ -15,6 +15,7 @@ const (
 func main() {
 	// 10 requst per 1 second
 	rl := ratelimit.NewLeakyBuckerLimiter(requestsPerInterval, intervalDuration)
+	defer rl.Stop()
 
 	for range 100 {
 		if rl.Allow() {
