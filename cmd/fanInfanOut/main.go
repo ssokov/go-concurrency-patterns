@@ -41,11 +41,11 @@ func main() {
 
 	input := generator.Generate(ctx, data, 1)
 
-	// fan-out на N каналов
+	// fan-out on N channels
 	N := 3
 	outs := fanout.FanOut(ctx, input, N)
 
-	// запускаем N worker'ов
+	// starting N workers
 	workerOuts := make([]<-chan int, 0, N)
 
 	for _, ch := range outs {
