@@ -13,14 +13,14 @@ Each pattern is written in an idiomatic, minimal, and race-safe way.
 ## Patterns
 
 - [x] Generator
-- [ ] Fan-out
-- [ ] Fan-in
-- [ ] Fan-in + Fan-out
+- [x] Fan-out
+- [x] Fan-in
+- [x] Fan-in + Fan-out
 - [ ] Pipeline
 - [ ] Worker Pool
 - [ ] Bounded Worker Pool
 - [ ] Semaphore (channel-based)
-- [ ] Rate Limiting
+- [x] Rate Limiting
 - [ ] Backpressure
 - [ ] Tee Channel
 - [ ] Bridge Channel
