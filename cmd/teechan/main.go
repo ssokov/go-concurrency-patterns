@@ -9,8 +9,6 @@ import (
 	"github.com/ssokov/go-concurrency-patterns/internal/teechan"
 )
 
-type Teechan[T any] func(<-chan T, int) []chan T
-
 func main() {
 	ctx := context.Background()
 
