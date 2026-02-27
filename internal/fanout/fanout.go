@@ -17,7 +17,7 @@ func FanOut[T any](ctx context.Context, inputCh <-chan T, size int) []chan T {
 	if size <= 0 {
 		return nil
 	}
- 
+
 	outputCh := make([]chan T, size)
 
 	for i := 0; i < len(outputCh); i++ {
