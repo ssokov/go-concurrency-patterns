@@ -19,5 +19,6 @@ Each pattern is written in an idiomatic, minimal, and race-safe way.
 - [x] Worker Pool
 - [ ] Semaphore (channel-based)
 - [x] Rate Limiting
-- [ ] Tee Channel
+- [x] Tee Channel
 - [ ] Bridge Channel
+

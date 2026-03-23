@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	bufferSize   = 4
+	bufferSize  = 4
 	workerCount = 2
 )
 
